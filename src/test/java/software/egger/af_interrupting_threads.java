@@ -2,9 +2,7 @@ package software.egger;
 
 import org.junit.Test;
 
-import static org.junit.Assert.fail;
-
-public class ah_interrupting_threads {
+public class af_interrupting_threads {
 
     @Test
     public void simpleInterrupt() throws InterruptedException {
@@ -19,7 +17,7 @@ public class ah_interrupting_threads {
         });
 
         thread.start();
-        thread.sleep(1000);
+        Thread.sleep(1000);
         thread.interrupt();
 
     }
@@ -42,15 +40,32 @@ public class ah_interrupting_threads {
         });
 
         thread.start();
-        thread.sleep(1000);
+        Thread.sleep(1000);
         thread.interrupt();
-        thread.sleep(1000);
+        Thread.sleep(1000);
         thread.interrupt();
 
     }
 
     @Test
     public void interruptingSleepingThread() {
-        fail("TODO");
+
+        Thread thread = new Thread(() -> {
+
+            try {
+                Thread.sleep(10000);
+                System.out.println("done");
+            } catch (InterruptedException e) {
+                System.out.println("interrupted");
+                System.out.println("isInterrupted(): " + Thread.currentThread().isInterrupted());
+                System.out.println("interrupted(): " + Thread.interrupted());
+            }
+
+
+        });
+
+        thread.start();
+        thread.interrupt();
+
     }
 }

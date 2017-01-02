@@ -7,7 +7,7 @@ import java.time.Instant;
 
 import static org.junit.Assert.fail;
 
-public class ai_wait_for_a_thread_to_finish {
+public class ag_wait_for_a_thread_to_finish {
 
     @Test
     public void simpleJoin() throws InterruptedException {

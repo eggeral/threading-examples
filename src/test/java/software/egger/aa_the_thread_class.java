@@ -2,9 +2,19 @@ package software.egger;
 
 import org.junit.Test;
 
-import static software.egger.util.Utils.sleep;
+import java.math.BigInteger;
 
 public class aa_the_thread_class {
+
+    private void slowLoop(int times) {
+        BigInteger max = new BigInteger("99999");
+        BigInteger idx = BigInteger.ZERO;
+        for (int count = 0; count < times; count++) {
+            while (!idx.equals(max)) {
+                idx = idx.add(BigInteger.ONE);
+            }
+        }
+    }
 
     @Test
     public void constructingRunnableAndThread() {
@@ -39,12 +49,13 @@ public class aa_the_thread_class {
 
     }
 
+
     @Test
     public void threadProperties() {
         // Setting the name of a Thread is useful for debugging
         Runnable r1 = () -> {
             System.out.println(Thread.currentThread().getName() + " start");
-            sleep(10L);
+            slowLoop(10);
             System.out.println(Thread.currentThread().getName() + " end");
         };
         Thread t1 = new Thread(r1, "my thread 1");
@@ -55,7 +66,7 @@ public class aa_the_thread_class {
         System.out.println("t1.isAlive(): " + t1.isAlive());
         t1.start(); // Starting the thread
         System.out.println("t1.isAlive(): " + t1.isAlive());
-        sleep(20L);
+        slowLoop(20);
         System.out.println("t1.isAlive(): " + t1.isAlive());
         System.out.println("======");
 
@@ -64,7 +75,7 @@ public class aa_the_thread_class {
         System.out.println("t1.getState(): " + t1.getState());
         t1.start(); // Starting the thread
         System.out.println("t1.getState(): " + t1.getState());
-        sleep(20L);
+        slowLoop(20);
         System.out.println("t1.getState(): " + t1.getState());
         // t1.start(); // A thread can not be started twice
         // See State enum for other Thread states.

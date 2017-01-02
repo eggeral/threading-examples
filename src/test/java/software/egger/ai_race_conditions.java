@@ -2,7 +2,7 @@ package software.egger;
 
 import org.junit.Test;
 
-public class ak_race_conditions {
+public class ai_race_conditions {
     static class Counter {
         private int currentValue;
 

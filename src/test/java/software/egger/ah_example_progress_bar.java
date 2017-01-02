@@ -1,15 +1,14 @@
 package software.egger;
 
-import org.junit.Test;
-import software.egger.util.ImportantWork;
+public class ah_example_progress_bar {
 
-import static org.junit.Assert.fail;
+    public static void doWork() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-public class aj_example_progress_bar {
-
-    @Test
-    public void testOnWindows() {
-        fail("Test on Windows");
     }
 
     // execute in Terminal! \b does not work in IntelliJ console output.
@@ -19,7 +18,7 @@ public class aj_example_progress_bar {
         System.out.println("START");
         for (int idx = 0; idx < 10; idx++) {
             System.out.print("=>");
-            ImportantWork.doWork();
+            doWork();
             System.out.print("\b");
         }
         System.out.print(" ");
@@ -35,7 +34,7 @@ public class aj_example_progress_bar {
         Thread thread = new Thread(() -> {
             for (int idx = 0; idx < 10; idx++) {
                 System.out.print("=");
-                ImportantWork.doWork();
+                doWork();
             }
         });
 

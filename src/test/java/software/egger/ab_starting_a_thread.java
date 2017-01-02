@@ -2,7 +2,7 @@ package software.egger;
 
 import org.junit.Test;
 
-public class ad_starting_a_thread {
+public class ab_starting_a_thread {
 
     @Test
     public void startingAThread() {
