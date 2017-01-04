@@ -6,9 +6,7 @@ import org.junit.Test;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class au_executor_service {
 
@@ -102,6 +100,83 @@ public class au_executor_service {
 
         executorService.shutdownNow(); // returns a list of tasks not executed.
         executorService.awaitTermination(10, TimeUnit.SECONDS); // await termination of all scheduled tasks.
+
+    }
+
+    @Test
+    public void scheduledExecutorService() throws InterruptedException {
+
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
+
+        executorService.scheduleAtFixedRate(
+                () -> System.out.println("Tick"),
+                0,
+                100,
+                TimeUnit.MILLISECONDS
+        );
+
+        Thread.sleep(500);
+
+        executorService.shutdown();
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
+
+    }
+
+    private int count = 0;
+
+    @Test
+    public void scheduledExecutorServiceWithException() throws InterruptedException {
+
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
+
+        // Tasks are not scheduled again if the throw an exception!
+        executorService.scheduleAtFixedRate(
+                () -> {
+                    System.out.println("Tick");
+                    if (count > 1)
+                        throw new IllegalStateException("KABOOM");
+                    count++;
+                },
+                0,
+                100,
+                TimeUnit.MILLISECONDS
+        );
+
+        Thread.sleep(500);
+
+        executorService.shutdown();
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
+
+    }
+
+    @Test
+    public void invokeAllRunsAllCallablesAndWaitsForThemToFinish() throws InterruptedException, ExecutionException {
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
+
+        List<Callable<Integer>> tasks = new ArrayList<>();
+
+        for (int idx = 0; idx < 10; idx++) {
+            int number = idx;
+            tasks.add(() -> {
+                Random rnd = new Random();
+                Thread.sleep(100);
+                System.out.println("Number: " + number + " is done.");
+                return rnd.nextInt(1000);
+            });
+        }
+
+        System.out.println("== Starting tasks");
+        List<Future<Integer>> results = executorService.invokeAll(tasks);
+        System.out.println("== All tasks done");
+
+        for (Future<Integer> result : results) {
+            System.out.println("Result: " + result.get());
+            System.out.println("Done: " + result.isDone());
+            System.out.println("Canceled: " + result.isCancelled());
+        }
+
+        executorService.shutdown();
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
 
     }
 

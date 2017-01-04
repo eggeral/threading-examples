@@ -142,5 +142,28 @@ public class av_futures {
 
     }
 
+    @Test
+    public void scheduledFuture() throws InterruptedException, ExecutionException {
+
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
+
+        ScheduledFuture<?> scheduledFuture = executorService.scheduleAtFixedRate( // sorry no return values (only for schedule(...))
+                () -> System.out.println("Tick"),
+                0,
+                100,
+                TimeUnit.MILLISECONDS
+        );
+
+        // scheduledFuture.get(); // this blocks until the task is done. In our case never!!!
+        Thread.sleep(500);
+
+        scheduledFuture.cancel(false); // stop scheduling new tasks.
+
+        // scheduledFuture.get(); // throws exception because we are already canceled
+
+        executorService.shutdown();
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
+
+    }
 
 }
