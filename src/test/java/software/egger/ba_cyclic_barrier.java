@@ -89,9 +89,6 @@ public class ba_cyclic_barrier {
 
     }
 
-
     // Leaving out details like handling of exceptions, await timeout, interruptions.
-
-    // Next example: ak_... with cyclic barrires
 
 }
