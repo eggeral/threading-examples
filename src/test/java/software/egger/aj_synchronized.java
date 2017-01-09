@@ -22,7 +22,7 @@ public class aj_synchronized {
         }
     }
 
-    static class PrivateSynchronizedCounter {
+    static class PrivateLockSynchronizedCounter {
         private int currentValue;
 
         // Prevent others from stealing our lock!
@@ -73,7 +73,7 @@ public class aj_synchronized {
 
     @Test
     public void usingPrivateSynchronizedCounter() throws InterruptedException {
-        PrivateSynchronizedCounter counter = new PrivateSynchronizedCounter();
+        PrivateLockSynchronizedCounter counter = new PrivateLockSynchronizedCounter();
 
         Runnable worker = () -> {
             for (int idx = 0; idx < 5; idx++) {
