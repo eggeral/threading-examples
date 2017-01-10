@@ -17,7 +17,6 @@ public class ay_example_testing_treads_using_count_down_latches {
         CountDownLatch threadStarted = new CountDownLatch(1);
         CountDownLatch threadGotStop = new CountDownLatch(1);
 
-
         Thread t = new Thread(() -> {
             System.out.println("T started");
             threadStarted.countDown();

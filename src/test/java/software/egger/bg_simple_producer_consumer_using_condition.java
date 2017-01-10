@@ -23,8 +23,6 @@ public class bg_simple_producer_consumer_using_condition {
     @Test
     public void avoidBusyWaitUsingWaitNotify() throws InterruptedException {
 
-        CountDownLatch done = new CountDownLatch(2);
-
         Lock lock = new ReentrantLock();
         Condition condition = lock.newCondition();
 

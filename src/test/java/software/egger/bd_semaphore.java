@@ -94,7 +94,7 @@ public class bd_semaphore {
         executorService.submit(producer);
         executorService.submit(consumer);
 
-        Thread.sleep(30_000);
+        Thread.sleep(1_000);
 
         done = true;
 
