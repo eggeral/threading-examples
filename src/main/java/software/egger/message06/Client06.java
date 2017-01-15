@@ -2,6 +2,7 @@ package software.egger.message06;
 
 import java.io.*;
 import java.net.Socket;
+import java.time.Instant;
 import java.util.Scanner;
 
 public class Client06 {
@@ -10,24 +11,23 @@ public class Client06 {
 
         try (
 
-                Socket connectionToServer = new Socket("", 5678);
+                Socket connectionToServer = new Socket("localhost", 6789);
                 PrintWriter writer = new PrintWriter(new OutputStreamWriter(connectionToServer.getOutputStream()));
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connectionToServer.getInputStream()));
-                Scanner scanner = new Scanner(System.in)
 
         ) {
 
             System.out.println("Connection to server established");
 
             while (true) {
-                String line = scanner.nextLine();
-                writer.println(line);
+                writer.println("GET");
                 writer.flush();
-                System.out.println("Got from server: " + reader.readLine());
+                System.out.println(Instant.now() + ". Got from server: " + reader.readLine());
+                Thread.sleep(500);
             }
 
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 

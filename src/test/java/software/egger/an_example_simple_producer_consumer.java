@@ -2,6 +2,7 @@ package software.egger;
 
 import org.junit.Test;
 
+@SuppressWarnings("Duplicates")
 public class an_example_simple_producer_consumer {
 
     // The producer creates a value. The consumer gets all values created and writes it to the console!

@@ -6,7 +6,7 @@ import java.net.Socket;
 @SuppressWarnings("Duplicates")
 public class Client02 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         try (
 
@@ -17,6 +17,8 @@ public class Client02 {
         ) {
 
             System.out.println("Connection to server established");
+
+            Thread.sleep(5000); // so we have time to start a second client.
 
             writer.println("Hello from client.");
             writer.flush();

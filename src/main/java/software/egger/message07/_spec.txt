@@ -1,1 +1,2 @@
-* Implement a client polling the sensor server sending in to the message server which in turn delivers the message to all clients
+* Implement a client polling the sensor server sending it the message server which
+  in turn delivers the message to all clients

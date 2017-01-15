@@ -1,14 +1,14 @@
-package software.egger.message04;
+package software.egger.message05;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class Client04 {
+@SuppressWarnings("ALL")
+public class SenderClient05 {
 
     public static void main(String[] args) {
 

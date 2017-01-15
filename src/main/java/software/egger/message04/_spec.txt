@@ -1,3 +1,4 @@
 * Server is slowed down.
 * Client should still respond to user input fast.
 * Queue user inputs.
+* The client _must not_ send a second request until it receives a response from the server

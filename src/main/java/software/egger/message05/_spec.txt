@@ -1,1 +1,3 @@
-* Server sends messages to all clients
+* 2 types of clients: sender and receiver
+* Senders send messages to the server. The server acks that it got the message
+* Sender sends messages to all receivers

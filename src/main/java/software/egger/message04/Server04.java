@@ -47,12 +47,14 @@ public class Server04 {
             while (!(line = reader.readLine()).equals("Exit")) {
 
                 System.out.println("Got from client: " + line);
-
-                writer.println("Hello from server");
+                System.out.println("Doing some work which takes long");
+                Thread.sleep(5000);
+                writer.println("Response from server: " + line.split(":")[0]);
                 writer.flush();
+
             }
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         } finally {
             try {

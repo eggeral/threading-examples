@@ -62,5 +62,6 @@ public class bj_blocking_queue {
 
     }
 
+    // also have a look at other queue implementations in java.concurrent!
 
 }

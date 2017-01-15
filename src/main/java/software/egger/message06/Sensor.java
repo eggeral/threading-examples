@@ -39,7 +39,6 @@ public class Sensor implements Runnable {
         stop = true;
     }
 
-
     public double getValue() {
         long stamp = lock.tryOptimisticRead();
         double currentC1 = channel1;

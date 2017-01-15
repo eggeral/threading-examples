@@ -4,6 +4,7 @@ package software.egger.message06;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.Instant;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,15 +18,8 @@ public class SensorServer06 {
         ExecutorService sensorExecutorService = Executors.newSingleThreadExecutor();
         sensorExecutorService.submit(sensor);
 
-        //client connections get their own threadpool!
+        //client connections get their own thread pool!
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-
-        executorService.submit(() -> {
-            while (true) {
-                System.out.println(sensor.getValue());
-                Thread.sleep(50);
-            }
-        });
 
         try {
 
@@ -36,7 +30,7 @@ public class SensorServer06 {
                 Socket connectionToClient = serverSocket.accept();
                 System.out.println("Client connected");
 
-                executorService.submit(() -> clientConnectionHandler(connectionToClient));
+                executorService.submit(() -> clientConnectionHandler(connectionToClient, sensor));
 
                 System.out.println("Server is done");
             }
@@ -47,22 +41,28 @@ public class SensorServer06 {
 
     }
 
-    private static void clientConnectionHandler(Socket connectionToClient) {
+    private static void clientConnectionHandler(Socket connectionToClient, Sensor sensor) {
 
         try (
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connectionToClient.getInputStream()));
-                PrintWriter writer = new PrintWriter(new OutputStreamWriter(connectionToClient.getOutputStream()));
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(connectionToClient.getOutputStream()))
 
         ) {
 
             String line;
-            while (!(line = reader.readLine()).equals("Exit")) {
+            while (!(line = reader.readLine()).equals("EXIT")) {
 
-                System.out.println("Got from client: " + line);
+                System.out.println(Instant.now() + ". Got " + line + " from client.");
 
-                writer.println("Hello from server");
-                writer.flush();
+                if (line.equals("GET")) {
+                    double value = sensor.getValue();
+                    System.out.println(Instant.now() + ". Value read from sensor");
+                    writer.println("Value: " + value);
+                    writer.flush();
+                    System.out.println(Instant.now() + ". Value returned");
+                }
+
             }
 
         } catch (IOException e) {

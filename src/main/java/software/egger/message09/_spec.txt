@@ -1,0 +1,2 @@
+* Create a management port for servers
+* Shut down server on request on management port
