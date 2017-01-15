@@ -1,0 +1,3 @@
+* Server is slowed down.
+* Client should still respond to user input fast.
+* Queue user inputs.

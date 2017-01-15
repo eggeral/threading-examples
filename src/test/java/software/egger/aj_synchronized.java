@@ -138,6 +138,20 @@ public class aj_synchronized {
 
     }
 
+    @Test
+    public void reentrant() {
+        // Reentrant means that a thread does not wait for locks it already owns.
+        Object lock = new Object();
+
+        synchronized (lock) {
+            System.out.println("Got the lock the first time");
+            synchronized (lock) {
+                System.out.println("Got the lock the second time");
+            }
+        }
+
+    }
+
 }
 
 

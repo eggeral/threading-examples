@@ -1,0 +1,1 @@
+* Client waits for console input and sends it to the server until the client is shut down

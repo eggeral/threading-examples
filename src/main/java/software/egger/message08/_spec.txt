@@ -1,0 +1,1 @@
+* Automatically reconnect when the SensorServer is not available.

@@ -1,0 +1,2 @@
+* Implement a sensor which runs in a thread and creates sensor data for 2 channels. The sensor returns the sum of channel1 and channel2
+* Implement a server which when a client connects reads the current sensor data sends it to the client an disconnects

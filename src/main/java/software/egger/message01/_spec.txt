@@ -1,0 +1,3 @@
+* Server listens to a single client.
+* Server and client exchange a single line.
+* Both server and client end after messages have been exchanged.

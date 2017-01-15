@@ -1,0 +1,2 @@
+* Server allows multiple connections
+* Server stays alive until shut down
