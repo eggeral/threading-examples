@@ -13,6 +13,7 @@ public class aa_the_thread_class {
             while (!idx.equals(max)) {
                 idx = idx.add(BigInteger.ONE);
             }
+            idx = BigInteger.ZERO;
         }
     }
 

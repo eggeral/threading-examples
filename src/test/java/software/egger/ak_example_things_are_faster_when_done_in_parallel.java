@@ -26,11 +26,16 @@ public class ak_example_things_are_faster_when_done_in_parallel {
         Instant start = Instant.now();
         for (int idx = 0; idx < size; idx++) {
             integerList.add(rnd.nextInt());
+            if (idx % 10_000 == 0)
+                printMemoryUsage();
+
         }
 
         System.out.println("Init done");
         System.out.println("Init -> It took: " + Duration.between(start, Instant.now()));
         System.out.println("===");
+        System.out.println("List size is: " + integerList.size() + "should be: " + size);
+
         assertThat(integerList.size(), is(size));
 
         long sum = 0;
@@ -271,5 +276,27 @@ public class ak_example_things_are_faster_when_done_in_parallel {
 
     }
 
+    private static void printMemoryUsage() {
 
+        int mb = 1024 * 1024;
+
+        //Getting the runtime reference from system
+        Runtime runtime = Runtime.getRuntime();
+
+        System.out.println("##### Heap utilization statistics [MB] #####");
+
+        //Print used memory
+        System.out.println("Used Memory:"
+                + (runtime.totalMemory() - runtime.freeMemory()) / mb);
+
+        //Print free memory
+        System.out.println("Free Memory:"
+                + runtime.freeMemory() / mb);
+
+        //Print total available memory
+        System.out.println("Total Memory:" + runtime.totalMemory() / mb);
+
+        //Print Maximum available memory
+        System.out.println("Max Memory:" + runtime.maxMemory() / mb);
+    }
 }

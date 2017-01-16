@@ -31,7 +31,7 @@ public class ag_wait_for_a_thread_to_finish {
 
         start = Instant.now();
 
-        // without join
+        // with join
         thread = new Thread(() -> {
             try {
                 Thread.sleep(1000);

@@ -21,6 +21,33 @@ public class ai_race_conditions {
         }
     }
 
+    private int counter = 0;
+
+    @Test
+    public void verySimpleRaceCondition() throws InterruptedException {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                for (int idx = 0; idx < 100000; idx++) {
+                    counter++;
+                }
+            }
+        };
+
+        Thread t1 = new Thread(r);
+        Thread t2 = new Thread(r);
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+
+        System.out.println(counter);
+
+    }
+
+
     @Test
     public void classicAddProblem() throws InterruptedException {
         Counter counter = new Counter();

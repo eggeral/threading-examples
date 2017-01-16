@@ -77,7 +77,7 @@ public class ao_example_producer_consumer_queue_with_multiple_consumers {
 
 
     @Test
-    public void ifServeralConsumersShouldGetTheSameValueWeUseOnConsumerToDistributeTheWork() throws InterruptedException {
+    public void ifSeveralConsumersShouldGetTheSameValueWeUseOnConsumerToDistributeTheWork() throws InterruptedException {
         // all consumers are doing the same. If an item is ready only the first consumer gets the item.
 
         value = 0;

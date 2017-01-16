@@ -52,7 +52,7 @@ public class ar_timer {
             Thread.sleep(100);
         }
 
-        // It the time is in the past. The task executes immediately.
+        // If the time is in the past. The task executes immediately.
         System.out.println("==");
 
         // NOTE: A task can only be scheduled once!

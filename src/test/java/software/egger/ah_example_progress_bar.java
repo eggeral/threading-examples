@@ -40,7 +40,7 @@ public class ah_example_progress_bar {
 
         System.out.println("START");
         thread.start();
-        while (thread.isAlive()) {
+        while (thread.isAlive()) {  // this is dangerous!
             System.out.print("-\b");
             Thread.sleep(50);
             System.out.print("\\\b");
