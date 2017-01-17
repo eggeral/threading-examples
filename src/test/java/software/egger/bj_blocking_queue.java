@@ -53,7 +53,7 @@ public class bj_blocking_queue {
         executorService.submit(producer);
         executorService.submit(consumer);
 
-        Thread.sleep(1_000);
+        Thread.sleep(10_000);
 
         done = true;
 

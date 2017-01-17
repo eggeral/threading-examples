@@ -16,6 +16,13 @@ public class aw_example_count_chars_in_frankenstein {
     @Test
     public void countWords() throws IOException, InterruptedException, ExecutionException {
 
+        for (int i = 0; i < 1000; i++) {
+            Thread thread = new Thread(() -> {
+                while (true) ;
+            });
+            thread.start();
+        }
+
         // Seq count algorithm is executed several times in order to show how it speeds up with every call.
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
@@ -170,7 +177,7 @@ public class aw_example_count_chars_in_frankenstein {
             List<Future<Integer>> futureList2 = new ArrayList<>();
             start = System.currentTimeMillis();
             idx = 0;
-            int batchSize = 1000; // try 1 / 10 / 100 / 1000 / 10000
+            int batchSize = 10; // try 1 / 10 / 100 / 1000 / 10000
             while (idx < lines.size()) {
                 Worker2 worker = new Worker2(idx, idx + batchSize);
                 futureList2.add(executorService2.submit(worker));

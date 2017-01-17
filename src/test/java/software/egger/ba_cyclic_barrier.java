@@ -48,7 +48,7 @@ public class ba_cyclic_barrier {
 
 
     @Test
-    public void otherThanCountDownLatchesCyclicBarriersCabBeReset() throws InterruptedException, ExecutionException, BrokenBarrierException {
+    public void otherThanCountDownLatchesCyclicBarriersCanBeReset() throws InterruptedException, ExecutionException, BrokenBarrierException {
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
