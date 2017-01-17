@@ -97,13 +97,55 @@ public class aw_example_count_chars_in_frankenstein {
 
             System.out.println("4 par ====");
 
-
             class Worker implements Callable<Integer> {
+
+                private String line;
+
+                public Worker(String line) {
+                    this.line = line;
+                }
+
+                @Override
+                public Integer call() throws Exception {
+                    int count = 0;
+                    String[] words = line.split("[\\P{L}]+");
+                    for (String word : words) {
+                        if (word.contains("th"))
+                            count++;
+                    }
+                    return count;
+                }
+            }
+
+            ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+            List<Future<Integer>> futureList = new ArrayList<>();
+            start = System.currentTimeMillis();
+            int idx = 0;
+            for (String line : lines) {
+                Worker worker = new Worker(line);
+                futureList.add(executorService.submit(worker));
+            }
+
+            count = 0;
+            for (Future<Integer> future : futureList) {
+                count += future.get();
+            }
+
+            end = System.currentTimeMillis();
+            System.out.println("Count: " + count + " - " + (end - start) + "ms");
+
+            System.out.println("====");
+
+
+            System.out.println("5 par ====");
+
+            class Worker2 implements Callable<Integer> {
 
                 private final int start;
                 private final int end;
 
-                public Worker(int start, int end) {
+                public Worker2(int start, int end) {
                     this.start = start;
                     this.end = end;
                 }
@@ -123,20 +165,20 @@ public class aw_example_count_chars_in_frankenstein {
                 }
             }
 
-            ExecutorService executorService = Executors.newCachedThreadPool();
+            ExecutorService executorService2 = Executors.newCachedThreadPool();
 
-            List<Future<Integer>> futureList = new ArrayList<>();
+            List<Future<Integer>> futureList2 = new ArrayList<>();
             start = System.currentTimeMillis();
-            int idx = 0;
+            idx = 0;
             int batchSize = 1000; // try 1 / 10 / 100 / 1000 / 10000
             while (idx < lines.size()) {
-                Worker worker = new Worker(idx, idx + batchSize);
-                futureList.add(executorService.submit(worker));
+                Worker2 worker = new Worker2(idx, idx + batchSize);
+                futureList2.add(executorService2.submit(worker));
                 idx += batchSize;
             }
 
             count = 0;
-            for (Future<Integer> future : futureList) {
+            for (Future<Integer> future : futureList2) {
                 count += future.get();
             }
 
@@ -144,7 +186,6 @@ public class aw_example_count_chars_in_frankenstein {
             System.out.println("Count: " + count + " - " + (end - start) + "ms");
 
             System.out.println("====");
-
 
         }
 
