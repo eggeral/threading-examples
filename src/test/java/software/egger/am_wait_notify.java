@@ -107,6 +107,7 @@ public class am_wait_notify {
 
     }
 
+    int counter = 0;
 
     @SuppressWarnings("Duplicates")
     @Test
@@ -123,6 +124,14 @@ public class am_wait_notify {
                     System.out.println("t1 wait interrupted");
                 }
                 System.out.println("t1 awake again");
+                int tmp = counter;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                counter = tmp + 1;
+                System.out.println("t1 done");
             }
         });
 
@@ -135,6 +144,14 @@ public class am_wait_notify {
                     System.out.println("t2 wait interrupted");
                 }
                 System.out.println("t2 awake again");
+                int tmp = counter;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                counter = tmp + 1;
+                System.out.println("t2 done");
             }
         });
 
@@ -144,12 +161,14 @@ public class am_wait_notify {
 
         synchronized (lock) {
             System.out.println("calling notifyAll");
-            lock.notifyAll();
+            lock.notifyAll(); // Note that all threads are awakened _and_ they are executed sequentially so locking is still guaranteed -> counter = 2
             System.out.println("notifyAll called");
         }
 
         t1.join();
         t2.join();
+
+        System.out.println("Counter " + counter);
 
     }
 
