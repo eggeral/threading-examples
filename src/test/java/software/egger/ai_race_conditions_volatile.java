@@ -2,7 +2,7 @@ package software.egger;
 
 import org.junit.Test;
 
-public class ai_race_conditions {
+public class ai_race_conditions_volatile {
     static class Counter {
         private int currentValue;
 
@@ -134,5 +134,40 @@ public class ai_race_conditions {
         t.join();
 
     }
+
+
+    static class Stop {
+        private boolean stop = false;
+
+        public boolean isStop() {
+            return stop;
+        }
+
+        public void setStop(boolean stop) {
+            this.stop = stop;
+        }
+    }
+
+    // setting volatile on object refs does makes the whole object volatile!
+    private volatile Stop stopObject = new Stop();
+    // Stop stopObject = new Stop();
+
+    @Test
+    public void cachedObjectRefs() throws InterruptedException {
+
+        Thread t = new Thread(() -> {
+            System.out.println("T started");
+            while (!stopObject.isStop()) ; // wait for stop
+            System.out.println("T is done");
+        });
+
+        t.start();
+        Thread.sleep(100); // give t1 some time to start
+        System.out.println("stop");
+        stopObject.setStop(true);
+        t.join();
+
+    }
+
 
 }
